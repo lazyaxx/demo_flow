@@ -1,0 +1,26 @@
+url_analysis_task:
+  description: >
+    Analyze the following URL using the url_analyzer tool:
+    Action: url_analyzer
+    Action Input: {"url": "{url}"}
+  expected_output: >
+    JSON with url, confidence_score, threat_indicators, and assessment
+  agent: url_analyzer_agent
+
+soc_communication_task:
+  description: >
+    Send previous result to SOC admin.
+    Action: soc_communicator
+    Action Input: {"analysis_data": "PASTE_ANALYSIS_JSON_HERE"}
+  expected_output: >
+    JSON with severity, action, reason
+  agent: soc_communication_agent
+
+gatekeeper_monitoring_task:
+  description: >
+    Decide final access control using gatekeeper_monitor.
+    Action: gatekeeper_monitor
+    Action Input: {"context": "Combined results"}
+  expected_output: >
+    Gatekeeper's final verdict and explanation
+  agent: gatekeeper_agent
